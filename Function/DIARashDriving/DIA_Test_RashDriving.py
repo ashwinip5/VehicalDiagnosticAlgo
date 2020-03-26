@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-Threshold = 30
+Threshold = 20.0
 class Test_RashDriving(unittest.TestCase):
 	def testRashDriving(self):
 		try:
@@ -12,12 +12,15 @@ class Test_RashDriving(unittest.TestCase):
 			if not(os.path.isdir("Result")):
 				os.mkdir("Result")
 			for i in df_File.index:
-				df = pd.read_csv(str(df_File["Input_File_Name"][i]))
+				df = pd.read_csv(df_File["Input_File_Name"][i])
+
 				TempFile1=df_File["Input_File_Name"][i].split('/')
 				TempFile3=TempFile1[-1].split('.')
 				TempFile4=str(TempFile3[0])
 				path=os.path.join("Result/" , TempFile4)
-				Location = DIARashDriving.detect_rash_driving(df[' Latitude'], df[' Longitude'], df['Accelerator PedalPosition D(%)'].replace(to_replace='-',value=0), df['Accelerator PedalPosition E(%)'].replace(to_replace='-',value=0), Threshold)
+				df1=df['Accelerator PedalPosition D(%)'].replace(to_replace='-',value=0)
+				df2=df['Accelerator PedalPosition E(%)'].replace(to_replace='-',value=0)
+				Location = DIARashDriving.detect_rash_driving(df[' Latitude'], df[' Longitude'], df1, df2,df['Trip Time(Since journey start)(s)'], Threshold)
 
 				plt.figure()
 				plt.plot(Location['Latitude'],Location['Longitude'],'r.',label='RashDriving_Locations')
