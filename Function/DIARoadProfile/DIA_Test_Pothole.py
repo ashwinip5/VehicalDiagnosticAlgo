@@ -22,7 +22,7 @@ class Test_Pothole(unittest.TestCase):
 
 				#TempO2Sensor=df['O2 Volts Bank 1 sensor 2(V)'].replace(to_replace='-',value=0)
 				plt.figure()
-				plt.plot(Location['Latitude'],Location['Longitude'],'r.',label='Lean')
+				plt.plot(Location['Latitude'],Location['Longitude'],'r.',label='Pothole')
 
 				plt.title("Pot Holes")
 				plt.ylabel('Longitude')
