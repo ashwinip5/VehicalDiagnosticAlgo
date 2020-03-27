@@ -9,14 +9,14 @@ class TestTraffic(unittest.TestCase):
 			df_File = pd.read_csv("List_of_Data_Set.csv")
 			os.system('mkdir Result')
 			for i in df_File.index:
-				df = pd.read_excel(str(df_File["Input_File_Name"][i]))
+				df = pd.read_csv(df_File["Input_File_Name"][i])
 				t1=df_File["Input_File_Name"][i].split('/')
 				t3=t1[-1].split('.')
 				t4=str(t3[0])
 				path=os.path.join("Result/" , t4)
 				os.mkdir(path)
 				#os.chdir(path)
-				HC, MC, LC=Traffic.traffic(df["Speed (GPS)(km/h)"],df[' Latitude'],df[' Longitude'])
+				HC, MC, LC=Traffic.traffic(df["Speed (GPS)(km/h)"].replace(to_replace='-',value=0),df[' Latitude'],df[' Longitude'])
 				t=df["Speed (GPS)(km/h)"]
 				t2=t.replace(to_replace='-',value=0)
 				plt.figure(1)
