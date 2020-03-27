@@ -20,7 +20,8 @@ class Test_RashDriving(unittest.TestCase):
 				path=os.path.join("Result/" , TempFile4)
 				df1=df['Accelerator PedalPosition D(%)'].replace(to_replace='-',value=0)
 				df2=df['Accelerator PedalPosition E(%)'].replace(to_replace='-',value=0)
-				Location = DIARashDriving.detect_rash_driving(df[' Latitude'], df[' Longitude'], df1, df2,df['Trip Time(Since journey start)(s)'], Threshold)
+				df3=df[[' Latitude', ' Longitude', 'Trip Time(Since journey start)(s)']].replace(to_replace='-',value=0)
+				Location = DIARashDriving.detect_rash_driving(df3, df1, df2, Threshold)
 
 				plt.figure()
 				plt.plot(Location['Latitude'],Location['Longitude'],'r.',label='RashDriving_Locations')
