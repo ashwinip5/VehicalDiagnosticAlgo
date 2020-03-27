@@ -9,10 +9,6 @@ def traffic(SPEED,latitude,longitude):
     #GPS_ARR = np.array(GPS)
     A = len(SPEED)
     for i in range(0, A):
-        #t2=SPEED_ARR.replace(to_replace='-',value=0)
-        #SPEED_ARR[SPEED_ARR = '-' ] = 0
-        if SPEED[i]== '-' :
-            SPEED[i] = '0'
         SPEED[i] = float(SPEED[i])
         LOW_CONGESTION_COUNT = 0
         MODERATE_CONGESTION_COUNT = 0
