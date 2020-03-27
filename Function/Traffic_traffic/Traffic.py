@@ -1,18 +1,13 @@
 import pandas as pd
-#from shapely.geometry import Point
-#import geopandas as gpd
-#import plotly.graph_objects as go
-#import plotly.express as px
 
 def traffic(SPEED,latitude,longitude):
-    #SPEED_ARR = np.array(SPEED)
-    #GPS_ARR = np.array(GPS)
     A = len(SPEED)
+    LOW_CONGESTION_COUNT = 0
+    MODERATE_CONGESTION_COUNT = 0
+    HIGH_CONGESTION_COUNT = 0
+
     for i in range(0, A):
         SPEED[i] = float(SPEED[i])
-        LOW_CONGESTION_COUNT = 0
-        MODERATE_CONGESTION_COUNT = 0
-        HIGH_CONGESTION_COUNT = 0
     LOW_CONGESTION_LOC = []
     MODERATE_CONGESTION_LOC = []
     HIGH_CONGESTION_LOC = []
@@ -22,11 +17,11 @@ def traffic(SPEED,latitude,longitude):
             HIGH_CONGESTION_COUNT += 1
             HIGH_CONGESTION_LOC.append([latitude[i], longitude[i], SPEED[i], i])
             HighCongestion = pd.DataFrame(data=HIGH_CONGESTION_LOC, columns=['Latitude', 'Longitude','Speed','Index'])
-        elif SPEED[i] > 10.00 and SPEED[i] < 20.00:
+        elif SPEED[i] < 20.00:
             MODERATE_CONGESTION_COUNT += 1
             MODERATE_CONGESTION_LOC.append([latitude[i], longitude[i], SPEED[i], i])
             ModerateCongestion = pd.DataFrame(data=MODERATE_CONGESTION_LOC, columns=['Latitude', 'Longitude','Speed','Index'])
-        elif SPEED[i] > 20.00:
+        else:
             LOW_CONGESTION_COUNT += 1
             LOW_CONGESTION_LOC.append([latitude[i], longitude[i], SPEED[i], i])
             LowCongestion = pd.DataFrame(data=LOW_CONGESTION_LOC, columns=['Latitude', 'Longitude','Speed','Index'])
