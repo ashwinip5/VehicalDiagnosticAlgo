@@ -6,8 +6,8 @@ def traffic(SPEED,latitude,longitude):
     MODERATE_CONGESTION_COUNT = 0
     HIGH_CONGESTION_COUNT = 0
 
-    for i in range(0, A):
-        SPEED[i] = float(SPEED[i])
+    #for i in range(0, A):
+    #    SPEED[i] = float(SPEED[i])
     LOW_CONGESTION_LOC = []
     MODERATE_CONGESTION_LOC = []
     HIGH_CONGESTION_LOC = []
