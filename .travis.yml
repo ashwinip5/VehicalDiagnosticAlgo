@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=ABC123
+    
 language: python
 python:
   - "3.5"
@@ -10,6 +14,13 @@ install:
   - pip install matplotlib
     #For Coverage Report
 # command to run tests
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  
+  
 script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - pwd
@@ -17,6 +28,10 @@ script:
   - python Run_Pipline.py
   - bash Running_Function.sh
   - echo "Done Done"
+ 
+  
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 branches:
   only:
@@ -28,7 +43,7 @@ after_success:
 
 
 deploy:
-  provider: pages
+  provider: master
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
