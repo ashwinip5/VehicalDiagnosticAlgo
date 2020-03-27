@@ -21,10 +21,6 @@ def LoadAnalysis(EngineLoad, EngineRPM, VehicleSpeed, TripTime):
     TempCounterOverload = 0
 
     for i in EngineLoad.index:
-        if EngineLoad[i] == '-':
-            EngineLoad[i] = '0'
-        if EngineRPM[i] == '-':
-            EngineRPM[i] = '0'
         EngineLoad[i] = float(EngineLoad[i])
         EngineRPM[i] = float(EngineRPM[i])
 
@@ -38,11 +34,6 @@ def LoadAnalysis(EngineLoad, EngineRPM, VehicleSpeed, TripTime):
     RPMThreshold = 0.5 * MaxRPM
 
     for i in EngineRPM.index:
-        if VehicleSpeed[i] == '-':
-            VehicleSpeed[i] = '0'
-        if TripTime[i] == '-':
-            TripTime[i] = '0'
-
         if (EngineLoad[i] < LoadThreshold):  # Checking whether vehicle speed is less than expected speed
             TempEngineLoadLess.append([EngineLoad[i], i])
         else:
