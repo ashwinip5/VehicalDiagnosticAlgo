@@ -23,8 +23,7 @@ class TestLoad_Analysis(unittest.TestCase):
                 TempFile3 = TempFile1[-1].split('.')
                 TempFile4 = str(TempFile3[0])
                 path = os.path.join("Result/", TempFile4)
-                if not os.path.isdir(path):
-                    os.mkdir(path)
+                
                 EngineLoadLess, EngineLoadMore, EngineRPMLess, EngineRPMMore, VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed, LoadThreshold, RPMThreshold, CounterOverload = DIAEngineAnalysis.LoadAnalysis(
                     df["Engine Load(%)"].replace(to_replace="-", value="0"),
                     df["Engine RPM(rpm)"].replace(to_replace="-", value="0"),
