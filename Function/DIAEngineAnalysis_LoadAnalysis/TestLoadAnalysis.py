@@ -23,14 +23,12 @@ class TestLoad_Analysis(unittest.TestCase):
                 TempFile3 = TempFile1[-1].split('.')
                 TempFile4 = str(TempFile3[0])
                 path = os.path.join("Result/", TempFile4)
-                
-                EngineLoadLess, EngineLoadMore, EngineRPMLess, EngineRPMMore, 
-		VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed, LoadThreshold, 
-		RPMThreshold, CounterOverload = DIAEngineAnalysis.LoadAnalysis(
+                if not os.path.isdir(path):
+                    os.mkdir(path)
+                EngineLoadLess, EngineLoadMore, EngineRPMLess, EngineRPMMore, VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed, LoadThreshold, RPMThreshold, CounterOverload = DIAEngineAnalysis.LoadAnalysis(
                     df["Engine Load(%)"].replace(to_replace="-", value="0"),
                     df["Engine RPM(rpm)"].replace(to_replace="-", value="0"),
-                    df['Speed (GPS)(km/h)'].replace(to_replace="-", value="0"), 
-			df['Trip Time(Since journey start)(s)'])
+                    df['Speed (GPS)(km/h)'].replace(to_replace="-", value="0"), df['Trip Time(Since journey start)(s)'])
                 TempEngineLoad1 = df["Engine Load(%)"].replace(to_replace='-', value=0)
                 plt.figure(1)
                 plt.plot(TempEngineLoad1, marker='o', label='Engine Load')
@@ -63,8 +61,7 @@ class TestLoad_Analysis(unittest.TestCase):
                 plt.plot(TempEngineRPM1, marker='o', label='Engine RPM')
                 plt.plot(EngineRPMLess['Index'], EngineRPMLess['EngineRPM'], 'g.')
                 plt.plot(EngineRPMMore['Index'], EngineRPMMore['EngineRPM'], 'r.')
-                plt.plot(np.repeat(RPMThreshold, len(TempEngineRPM1)), 
-			 label='Threshold = ' + str(round(LoadThreshold)))
+                plt.plot(np.repeat(RPMThreshold, len(TempEngineRPM1)), label='Threshold = ' + str(round(LoadThreshold)))
                 for x in CounterOverload:
                     TempCounterOverload.append(x * 10)
                 plt.plot(TempCounterOverload, label='Counter Overload')
