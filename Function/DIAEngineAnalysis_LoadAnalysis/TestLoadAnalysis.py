@@ -24,8 +24,9 @@ class TestLoad_Analysis(unittest.TestCase):
                 path = os.path.join("Result/", TempFile4)
 
                 EngineLoadLess, EngineLoadMore, EngineRPMLess, EngineRPMMore,\
-                VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed, LoadThreshold,\
-                RPMThreshold, CounterOverload = DIAEngineAnalysis.LoadAnalysis(
+                VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed,\
+                LoadThreshold,RPMThreshold,\
+                CounterOverload = DIAEngineAnalysis.LoadAnalysis(
                     df["Engine Load(%)"].replace(to_replace="-", value="0"),
                     df["Engine RPM(rpm)"].replace(to_replace="-", value="0"),
                     df['Speed (GPS)(km/h)'].replace(to_replace="-", value="0"),
@@ -65,8 +66,10 @@ class TestLoad_Analysis(unittest.TestCase):
                 TempEngineRPM1 = df["Engine RPM(rpm)"].replace('-', value = 0)
                 plt.figure(3)
                 plt.plot(TempEngineRPM1, marker='o', label='Engine RPM')
-                plt.plot(EngineRPMLess['Index'], EngineRPMLess['EngineRPM'], 'g.')
-                plt.plot(EngineRPMMore['Index'], EngineRPMMore['EngineRPM'], 'r.')
+                plt.plot(EngineRPMLess['Index'],
+                         EngineRPMLess['EngineRPM'], 'g.')
+                plt.plot(EngineRPMMore['Index'],
+                         EngineRPMMore['EngineRPM'], 'r.')
                 plt.plot(np.repeat(RPMThreshold, len(TempEngineRPM1)),
                          label='Threshold = ' + str(round(LoadThreshold)))
                 for x in CounterOverload:
