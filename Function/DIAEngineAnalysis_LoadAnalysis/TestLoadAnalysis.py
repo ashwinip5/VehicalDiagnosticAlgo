@@ -14,6 +14,8 @@ class TestLoad_Analysis(unittest.TestCase):
     def testLoadAnalysis(self):
         try:
             df_File = pd.read_csv("List_of_Data_Set.csv")
+            if not os.path.isdir("Result"):
+                os.mkdir("Result")
             for i in df_File.index:
                 TempCounterOverload = []
                 df = pd.read_csv(str(df_File["Input_File_Name"][i]))
@@ -21,7 +23,8 @@ class TestLoad_Analysis(unittest.TestCase):
                 TempFile3 = TempFile1[-1].split('.')
                 TempFile4 = str(TempFile3[0])
                 path = os.path.join("Result/", TempFile4)
-               
+                if not os.path.isdir(path):
+                    os.mkdir(path)
                 EngineLoadLess, EngineLoadMore, EngineRPMLess, EngineRPMMore, VehicleSpeedLess, VehicleSpeedMore, ExpectedSpeed, LoadThreshold, RPMThreshold, CounterOverload = DIAEngineAnalysis.LoadAnalysis(
                     df["Engine Load(%)"].replace(to_replace="-", value="0"),
                     df["Engine RPM(rpm)"].replace(to_replace="-", value="0"),
